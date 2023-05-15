@@ -108,7 +108,7 @@ void DWAPlanner::target_velocity_callback(const geometry_msgs::TwistConstPtr& ms
 {
     TARGET_VELOCITY = msg->linear.x;
     ROS_INFO_STREAM("target velocity was updated to " << TARGET_VELOCITY << "[m/s]");
-    // ROS_WARN("Target velocity was updated to %f m/s\n", TARGET_VELOCITY);
+    ROS_WARN("Target velocity was updated to %f m/s\n", TARGET_VELOCITY);
 }
 
 std::vector<DWAPlanner::State> DWAPlanner::dwa_planning(
@@ -147,11 +147,11 @@ std::vector<DWAPlanner::State> DWAPlanner::dwa_planning(
             }
         }
     }
-    // ROS_WARN("Cost: %.3f", min_cost);
-    // ROS_WARN("- Goal cost: %.3f", min_goal_cost);
-    // ROS_WARN("- Obs cost: %.3f", min_obs_cost);
-    // ROS_WARN("- Speed cost: %.3f", min_speed_cost);
-    // ROS_WARN("num of trajectories: %ld", trajectories.size());
+    ROS_WARN("Cost: %.3f", min_cost);
+    ROS_WARN("- Goal cost: %.3f", min_goal_cost);
+    ROS_WARN("- Obs cost: %.3f", min_obs_cost);
+    ROS_WARN("- Speed cost: %.3f", min_speed_cost);
+    ROS_WARN("num of trajectories: %ld", trajectories.size());
     visualize_trajectories(trajectories, 0, 1, 0, 1000, candidate_trajectories_pub);
     if(min_cost == 1e6){
         std::vector<State> traj;
@@ -243,13 +243,13 @@ float DWAPlanner::calc_to_goal_cost(const std::vector<State>& traj, const Eigen:
 {
     Eigen::Vector3d last_position(traj.back().x - goal[0], traj.back().y-goal[1], 0);
     Eigen::Vector3d goal_pos(goal[0], goal[1], 0);
-    // ROS_WARN("x, y: %.3f, %.3f", traj.back().x, traj.back().y);
+    ROS_WARN("x, y: %.3f, %.3f", traj.back().x, traj.back().y);
     // return (last_position.segment(0, 2) - goal.segment(0, 2)).norm();
     double angle = 0.0;
 
     angle = std::atan2(goal_pos.cross(last_position).norm(), goal_pos.dot(last_position));
-    // ROS_WARN("Angle: %.3f", angle);
-    // ROS_WARN("Score: %.3f", abs((angle))/M_PI);
+    ROS_WARN("Angle: %.3f", angle);
+    ROS_WARN("Score: %.3f", abs((angle))/M_PI);
     return abs((angle)/M_PI);
      
 }
